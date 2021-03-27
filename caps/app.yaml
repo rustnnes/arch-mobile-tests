@@ -1,0 +1,6 @@
+caps:
+  deviceName: "0046927045"
+  platformName: Android
+  version: "9.0"
+  app: app_under_test/sample.apk
+  realDevice: true
