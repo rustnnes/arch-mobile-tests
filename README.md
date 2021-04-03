@@ -27,8 +27,8 @@ $ pip install -r requirements.txt
 $ npm i
 ```
 
-6. Run `main.py` file to run test.
+6. To run tests, run:
 
 ```bash
-$ python main.py
+$ python -m unittest discover -s tests
 ```

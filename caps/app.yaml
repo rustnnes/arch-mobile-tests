@@ -1,0 +1,9 @@
+caps:
+  automationName: "uiautomator2"
+  deviceName: "emulador-5554"
+  platformName: Android
+  version: "9.0"
+  platformVersion: "9.0"
+  app: app_under_test/sample.apk
+  fullReset: true
+  realDevice: false
