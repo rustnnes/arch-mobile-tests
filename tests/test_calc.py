@@ -1,70 +1,68 @@
-from pathlib import Path
-
+import unittest
 from appium.webdriver.common.mobileby import MobileBy as By
-from selenium.webdriver.support.expected_conditions import (
-    element_to_be_clickable as is_clickable,
-    visibility_of_element_located as is_visible,
-)
 
-from tests.base import BaseTest
+from helpers.driver import DriverProvider
+from helpers.logger import LoggerProvider
+
+logger = LoggerProvider.get_logger(__name__)
 
 
-class Calculator(BaseTest):
-    def __init__(self, caps_file) -> None:
-        caps_file = f"{Path().parent.absolute()}/caps/calc.yaml"
-        super().__init__(caps_file=caps_file)
-        self.id_path = "com.google.android.calculator:id/"
+class Calculator(unittest.TestCase):
+    """
+    Teste para Calculadora do Android
+
+    Params
+        - digit_7: Número "7"
+        - digit_8: Número "8"
+        - opr_add: Operador Soma
+        - opr_sub: Operador Subtração
+        - eq: Sinal de Igual
+        - txt_result: Campo que guarda o resultado da operação
+        - caps: nome do arquivo Yaml, sem extensão, no diretório de capabilities
+
+    Curiosidade:
+        Os asserts do método test_subtract_7_and_8_must_give_minus_1 verificam
+        pelo caractere "−" (https://www.compart.com/en/unicode/U+2212),
+        diferente do caractere "-" (https://www.compart.com/en/unicode/U+002D),
+        que encontramos nos teclados.
+    """
+
+    digit_7 = (By.ID, "digit_7")
+    digit_8 = (By.ID, "digit_8")
+    opr_add = (By.ID, "op_add")
+    opr_sub = (By.ID, "op_sub")
+    eq = (By.ID, "eq")
+    txt_result = (By.XPATH, ".//*[contains(@resource-id, 'result')]")
+    caps = "calc"
+
+    def setUp(self) -> None:
+        self.driver = DriverProvider.get(self.caps)
+
+    def tearDown(self) -> None:
+        if self.driver != None:
+            logger.debug("Disposing Driver...")
+            self.driver.quit()
 
     def test_add_7_and_8_must_give_15(self):
-        augend = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}digit_7"))
-        )
-        augend.click()
+        self.driver.find_element(*self.digit_7).click()
+        self.driver.find_element(*self.opr_add).click()
+        self.driver.find_element(*self.digit_8).click()
+        self.driver.find_element(*self.eq).click()
 
-        operator = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}op_add"))
-        )
-        operator.click()
-
-        addend = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}digit_8"))
-        )
-        addend.click()
-
-        eq = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}eq"))
-        )
-        eq.click()
-
-        input_sum = BaseTest.wait(self.driver).until(
-            is_visible((By.ID, f"{self.id_path}result_final"))
-        )
-
-        self.assertTrue((input_sum != None) and (input_sum.text == "15"))
+        txt_result = self.driver.find_element(*self.txt_result)
+        self.assertEqual(txt_result.text, "15")
 
     def test_subtract_7_and_8_must_give_minus_1(self):
-        minuend = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}digit_7"))
-        )
-        minuend.click()
+        self.driver.find_element(*self.digit_7).click()
+        self.driver.find_element(*self.opr_sub).click()
+        self.driver.find_element(*self.digit_8).click()
+        self.driver.find_element(*self.eq).click()
 
-        operator = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}op_"))
-        )
-        operator.click()
+        txt_result = self.driver.find_element(*self.txt_result)
+        self.assertTrue(txt_result.text == "−1")
+        self.assertEqual(txt_result.text.find("−"), 0)
+        self.assertNotEqual(txt_result.text.find("-"), 0)
 
-        subtrahend = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}digit_8"))
-        )
-        Subtrahend.click()
 
-        eq = BaseTest.wait(self.driver).until(
-            is_clickable((By.ID, f"{self.id_path}eq"))
-        )
-        eq.click()
-
-        input_sum = BaseTest.wait(self.driver).until(
-            is_visible((By.ID, f"{self.id_path}result_final"))
-        )
-
-        self.assertTrue((input_sum != None) and (input_sum.text == "15"))
+if __name__ == "__main__":
+    unittest.main()
