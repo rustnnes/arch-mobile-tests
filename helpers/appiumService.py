@@ -1,11 +1,11 @@
-import logging
 import os
 from appium.webdriver.appium_service import AppiumService
 from dotenv import load_dotenv
 
-logger = logging.getLogger(__name__)
+from helpers.logger import LoggerProvider
 
 load_dotenv()
+logger = LoggerProvider.get_logger(__name__)
 
 
 class AppiumServiceWrapper:
@@ -15,13 +15,14 @@ class AppiumServiceWrapper:
         if AppiumServiceWrapper.service is None:
             AppiumServiceWrapper.service = AppiumService()
 
-            logger.debug("Starting AppiumService...")
+            logger.info("Starting AppiumService...")
             AppiumServiceWrapper.service.start(
-                args=["--address", os.getenv("HOST"), "-p", os.getenv("PORT")]
+                args=["--address", os.getenv("HOST"), "-p", os.getenv("PORT")],
             )
-
-    def is_started(self):
-        return AppiumServiceWrapper.service is not None
+            assert AppiumServiceWrapper.service.is_running
+            assert AppiumServiceWrapper.service.is_listening
 
     def __del__(self):
         AppiumServiceWrapper.service.stop()
+        assert not AppiumServiceWrapper.service.is_listening
+        assert not AppiumServiceWrapper.service.is_running
