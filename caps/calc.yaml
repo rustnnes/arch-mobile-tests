@@ -1,7 +1,10 @@
 caps:
-  deviceName: "0046927045"
-  platformName: Android
-  version: "9.0"
-  appPackage: com.google.android.calculator
+  automationName: "uiautomator2"
+  appPackage: com.android.calculator2
   appActivity: com.android.calculator2.Calculator
-  realDevice: true
+  deviceName: "emulador-5554"
+  noReset: true
+  platformName: Android
+  platformVersion: "9.0"
+  realDevice: false
+  version: "9.0"
