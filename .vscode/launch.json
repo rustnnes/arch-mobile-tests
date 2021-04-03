@@ -2,18 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Module",
+            "name": "Run tests",
             "type": "python",
             "request": "launch",
             "module": "unittest",
-            "args": ["discover", "-s", "tests", "-p", "test_*.py", "-v"]
-        },
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
+            "args": ["discover", "-s", "tests", "-v"]
         }
     ]
 }
