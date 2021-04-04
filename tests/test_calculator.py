@@ -7,6 +7,7 @@ from helpers.logger import LoggerProvider
 logger = LoggerProvider.get_logger(__name__)
 
 
+@unittest.skip("not implemented")
 class Calculator(unittest.TestCase):
     """
     Teste para Calculadora do Android
@@ -18,7 +19,6 @@ class Calculator(unittest.TestCase):
         - opr_sub: Operador Subtração
         - eq: Sinal de Igual
         - txt_result: Campo que guarda o resultado da operação
-        - caps: nome do arquivo Yaml, sem extensão, no diretório de capabilities
 
     Curiosidade:
         Os asserts do método test_subtract_7_and_8_must_give_minus_1 verificam
@@ -33,10 +33,9 @@ class Calculator(unittest.TestCase):
     opr_sub = (By.ID, "op_sub")
     eq = (By.ID, "eq")
     txt_result = (By.XPATH, ".//*[contains(@resource-id, 'result')]")
-    caps = "calc"
 
     def setUp(self) -> None:
-        self.driver = DriverProvider.get(self.caps)
+        self.driver = DriverProvider.get(self.__class__.__name__.lower())
 
     def tearDown(self) -> None:
         if self.driver != None:
