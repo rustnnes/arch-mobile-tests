@@ -7,7 +7,6 @@ from helpers.logger import LoggerProvider
 logger = LoggerProvider.get_logger(__name__)
 
 
-@unittest.skip("not implemented")
 class Calculator(unittest.TestCase):
     """
     Teste para Calculadora do Android

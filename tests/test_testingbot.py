@@ -16,7 +16,6 @@ def wait(driver, timeout=15):
     return wdw(driver, timeout)
 
 
-@unittest.skip("not implemented")
 class TestingBot(unittest.TestCase):
     """
     Teste para App TestingBot
