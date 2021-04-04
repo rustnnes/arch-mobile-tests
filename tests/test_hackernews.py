@@ -78,7 +78,9 @@ class HackerNews(unittest.TestCase):
                 titles[:10],
             )
         )
-        self.assertGreater(len(titles_about_opensource), 0)
+        self.assertGreater(
+            len(titles_about_opensource), 0, "No articles about open source..."
+        )
 
 
 if __name__ == "__main__":
