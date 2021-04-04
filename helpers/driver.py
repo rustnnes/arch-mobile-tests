@@ -1,5 +1,4 @@
-import json, logging, os, sys, yaml
-from pathlib import Path
+import json, logging, os, yaml
 
 from appium import webdriver
 from dotenv import load_dotenv
