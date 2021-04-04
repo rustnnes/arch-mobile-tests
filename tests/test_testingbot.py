@@ -16,6 +16,7 @@ def wait(driver, timeout=15):
     return wdw(driver, timeout)
 
 
+@unittest.skip("not implemented")
 class TestingBot(unittest.TestCase):
     """
     Teste para App TestingBot
@@ -24,16 +25,14 @@ class TestingBot(unittest.TestCase):
         - txt_a: campo representando um operando
         - txt_b: campo representando outro operando
         - txt_result: Campo que guarda o resultado da operação
-        - caps: nome do arquivo Yaml, sem extensão, no diretório de capabilities
     """
 
     txt_a = (By.ACCESSIBILITY_ID, "inputA")
     txt_b = (By.ACCESSIBILITY_ID, "inputB")
     txt_result = (By.ACCESSIBILITY_ID, "sum")
-    caps = "app"
 
     def setUp(self) -> None:
-        self.driver = DriverProvider.get(self.caps)
+        self.driver = DriverProvider.get(self.__class__.__name__.lower())
 
     def tearDown(self) -> None:
         if self.driver != None:
