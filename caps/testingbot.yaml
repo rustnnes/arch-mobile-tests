@@ -4,6 +4,6 @@ caps:
   platformName: Android
   version: "9.0"
   platformVersion: "9.0"
-  app: app_under_test/sample.apk
+  app: app_under_test/testingbot.apk
   fullReset: true
   realDevice: false
