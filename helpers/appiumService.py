@@ -23,6 +23,8 @@ class AppiumServiceWrapper:
             assert AppiumServiceWrapper.service.is_listening
 
     def __del__(self):
+        # TODO: identificar porque __del__ é chamado logo após startar
+        logger.info("Stopping AppiumService...")
         AppiumServiceWrapper.service.stop()
         assert not AppiumServiceWrapper.service.is_listening
         assert not AppiumServiceWrapper.service.is_running

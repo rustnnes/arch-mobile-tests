@@ -1,0 +1,10 @@
+caps:
+  automationName: "uiautomator2"
+  appPackage: com.android.calculator2
+  appActivity: com.android.calculator2.Calculator
+  deviceName: "emulador-5554"
+  noReset: true
+  platformName: Android
+  platformVersion: "9.0"
+  realDevice: false
+  version: "9.0"

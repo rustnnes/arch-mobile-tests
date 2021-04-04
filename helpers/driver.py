@@ -4,7 +4,6 @@ from pathlib import Path
 from appium import webdriver
 from dotenv import load_dotenv
 
-sys.path.append("/helpers")
 from helpers.appiumService import AppiumServiceWrapper
 
 load_dotenv()
