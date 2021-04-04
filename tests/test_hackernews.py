@@ -17,8 +17,28 @@ class HackerNews(unittest.TestCase):
     a partir do seu próprio código-fonte, o mais atualizado da lista disponível
     em https://github.com/cheeaun/awesome-hacker-news#android.
 
+    O teste abaixo verifica se há algum artigo relacionado a Open Source entre
+    os 10 primeiros da lista Top Stories, apresentada assim que o App é aberto.
+    Como são mostrados cinco artigos no primeiro fold da tela, foi necessário
+    fazer um swipe up, exibindo mais artigos e acrescentando-os numa lista, que
+    conterá os 10 primeiros títulos. Depois verificamos se o título contém as
+    palavras relacionadas.
+
     Params
-        - stories_titles: lista de títulos de artigos
+        - stories_titles: X-path da lista de títulos de artigos
+
+    Curiosidade:
+        O App tem Activities diferentes:
+            - LauncherActivity: inicia o app, como uma SplashScreen;
+            - ListActivity: responsável pela carga e apresentação dos artigos
+        Para poder iniciar o App no Emulador, precisamos indicar duas
+        capabilities:
+            - appWaitPackage: package da Activity a esperar apresentação
+            - appWaitActivity: Activity a apresentar após inicialização.
+        Há uma terceira capability, appWaitDuration, que é o tempo que devemos
+        esperar até que a Activity indicada na capability appWaitActivity seja
+        apresentada, e assim possamos iniciar o teste. Não a usei, pois seu
+        valor padrão é de 20000ms, tempo suficiente para o start do App.
     """
 
     stories_titles = (By.XPATH, "//*[contains(@resource-id,'title')]")
